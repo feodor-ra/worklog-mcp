@@ -1,0 +1,38 @@
+version: 2
+
+updates:
+  # Python dependencies, grouped so a runtime bump never hides inside a batch of
+  # tooling bumps: the runtime group changes what users install, the tooling
+  # group only changes CI. Both are gated by the full CI run on the PR.
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      runtime:
+        dependency-type: "production"
+        patterns:
+          - "*"
+      tooling:
+        dependency-type: "development"
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - dependencies
+
+  # GitHub Actions pinned in the workflows.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies

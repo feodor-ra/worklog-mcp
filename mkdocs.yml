@@ -1,0 +1,127 @@
+site_name: worklog-mcp
+site_description: MCP server that appends what you did to the checklist of the newest log file in a directory.
+site_url: https://feodor-ra.github.io/worklog-mcp/
+repo_url: https://github.com/feodor-ra/worklog-mcp
+repo_name: feodor-ra/worklog-mcp
+edit_uri: edit/main/docs/
+copyright: MIT License
+
+theme:
+  name: material
+  custom_dir: overrides
+  icon:
+    logo: material/checkbox-marked-outline
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search:
+      lang:
+        - en
+        - ru
+  - i18n:
+      docs_structure: folder
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: ru
+          name: Русский
+          build: true
+          nav_translations:
+            Overview: Обзор
+            Guide: Руководство
+            Reference: Справочник
+            Changelog: История изменений
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_section_style: table
+            separate_signature: true
+            signature_crossrefs: true
+            show_signature_annotations: true
+            merge_init_into_class: true
+            show_source: false
+            show_root_heading: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            members_order: source
+            filters:
+              - "!^_"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/feodor-ra/worklog-mcp
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/worklog-mcp/
+
+nav:
+  - Overview:
+      - index.md
+      - quickstart.md
+  - Guide:
+      - guide/configuration.md
+      - guide/clients.md
+      - guide/file-selection.md
+      - guide/checklist.md
+      - guide/cli.md
+      - guide/limitations.md
+  - Reference:
+      - reference/tools.md
+      - reference/api.md
+  - Changelog:
+      - changelog.md

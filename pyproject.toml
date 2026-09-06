@@ -1,0 +1,116 @@
+[project]
+name = "worklog-mcp"
+version = "0.1.0"
+description = "MCP server that appends what you did to the checklist of the newest log file in a directory"
+readme = "README.md"
+authors = [
+    { name = "Fedor Ratschew", email = "feodor.ra@me.com" },
+]
+requires-python = ">=3.13"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["mcp", "model-context-protocol", "worklog", "markdown", "checklist"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Information Technology",
+    "Natural Language :: English",
+    "Natural Language :: Russian",
+    "Operating System :: OS Independent",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Office/Business",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Text Editors :: Text Processing",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+dependencies = [
+    "mcp~=2.1",
+    "typer~=0.27",
+]
+
+[project.scripts]
+worklog-mcp = "worklog_mcp.cli:app"
+
+[project.urls]
+Homepage = "https://feodor-ra.github.io/worklog-mcp/"
+Documentation = "https://feodor-ra.github.io/worklog-mcp/"
+Repository = "https://github.com/feodor-ra/worklog-mcp"
+Issues = "https://github.com/feodor-ra/worklog-mcp/issues"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120
+preview = true
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "TC",                             # flake8-type-checking: pydantic and typer resolve annotations at runtime
+    "CPY",                            # flake8-copyright: no per-file copyright notices
+    "missing-trailing-comma",         # COM812: conflicts with the formatter
+    "relative-imports",               # TID252: relative imports inside the package are welcome
+    "docstring-extraneous-exception", # DOC502: an error raised by a private helper is still part of the caller's contract
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "assert",                       # S101: pytest is built on assert
+    "implicit-namespace-package",   # INP001: the tests directory is not a package
+    "magic-value-comparison",       # PLR2004: comparing to literal counts/exit codes is normal in tests
+    "import-private-name",          # PLC2701: tests exercise the package's private internals
+    "undocumented-public-function", # D103: a test's name is its description
+]
+"scripts/**" = [
+    "assert",                     # S101: the packaging smoke test asserts
+    "implicit-namespace-package", # INP001: scripts is not a package
+]
+
+[tool.ty.rules]
+all = "error"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-config --strict-markers"
+
+[tool.coverage.run]
+source = ["worklog_mcp"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+
+[dependency-groups]
+dev = [
+    "anyio~=4.15.1",
+    "pytest~=9.1.1",
+    "pytest-cov~=7.1.0",
+    "ruff==0.16.6",
+    "ty==0.0.78",
+]
+docs = [
+    "mkdocs-material~=9.7.7",
+    "mkdocs-static-i18n~=1.3.1",
+    "mkdocstrings[python]~=1.0.6",
+]

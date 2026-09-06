@@ -1,0 +1,17 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "worklog-mcp",
+  "description": "MCP server that appends one done item to the checklist of the newest file in a directory of work logs, keeping the directory path out of the model's context.",
+  "folders": ["docs/en"],
+  "excludeFolders": ["docs/en/reference"],
+  "rules": [
+    "Requires Python >= 3.13. Install as a tool: `uv tool install worklog-mcp`.",
+    "Configure the server at launch, never per call: `worklog-mcp serve --dir <directory> [--pattern <regex>]`. Both options also read the environment variables WORKLOG_DIR and WORKLOG_FILE_PATTERN.",
+    "The server exposes two tools: `append(description, dry_run=False)` writes one done item, `check()` reports which file would be written to and how many items it already holds.",
+    "The log file is the newest non-hidden file in the directory itself (no recursion), filtered by `--pattern` when one is given; today's date is never computed.",
+    "The item goes into the FIRST checklist of that file, after its last item, reusing the indent and bullet marker of the checklist's first item.",
+    "A file with no checklist gets one started at its end, returning the status `created`; `check` never does this and reports `no_checklist` instead.",
+    "The log file itself is never created: a missing directory or file comes back as the status `no_dir` or `no_file`, and the call stops.",
+    "Repeating the same description is safe — the second call returns `duplicate` and writes nothing."
+  ]
+}
