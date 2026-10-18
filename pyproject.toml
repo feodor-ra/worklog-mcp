@@ -50,7 +50,7 @@ Repository = "https://github.com/feodor-ra/worklog-mcp"
 Issues = "https://github.com/feodor-ra/worklog-mcp/issues"
 
 [build-system]
-requires = ["uv_build>=0.12.10,<0.13.0"]
+requires = ["uv_build>=0.12.10,<0.14.0"]
 build-backend = "uv_build"
 
 [tool.ruff]
@@ -106,8 +106,8 @@ dev = [
     "anyio~=4.15.1",
     "pytest~=9.1.1",
     "pytest-cov~=7.1.0",
-    "ruff==0.16.6",
-    "ty==0.0.78",
+    "ruff==0.17.0",
+    "ty==0.0.87",
 ]
 docs = [
     "mkdocs-material~=9.7.7",
